@@ -26,14 +26,14 @@ function App() {
       <header className="App-header">
 
         <a>
-          Calculadora
+          Calculadora Basica
         </a>
 
         <div className="calculator">
 
           <div className="display">
           
-            <span>(0)</span>0
+            <span>(0)</span> 0
 
           </div>
 
