@@ -1,66 +1,122 @@
-import './App.css';
+import { useState } from "react";
 
 function App() {
-  
-  const setNumbers = () => {
 
-    const numbers = [];
+  let [calc, setCalc] = useState("");
+  let [result, setResult] = useState("");
+
+  let ops = ['/', '*', '+', '-', '.'];
+
+  const updateCalc = (value) => {
+
+    if (
+
+      ops.includes(value) && calc === '' ||
+      ops.includes(value) && ops.includes(calc.slice(-1))
+      
+    ) {
+      return;
+    }
+
+    setCalc = (calc + value);
+
+    if (!ops.includes(value)) {
+      setResult(eval(calc + value).toString());
+    }
+
+  }
+  
+  const createDigits = () => {
+
+    const digits = [];
 
     for (let i = 1; i < 10; i++) {
 
-      numbers.push(
-        <button key={i}>{i}</button>
+      digits.push(
+
+        <button 
+          onClick={() => updateCalc(i.toString())} 
+          key={i}>
+          {i}
+        </button>
+
       )
       
     }
 
-    return numbers;
+    return digits;
 
   };
+
+  let calculate = () => {
+
+    setCalc(eval(calc).toString());
+
+  }
+
+  let deleteLast = () => {
+
+    if (calc === '') {
+      return;
+    }
+
+    let value = calc.slice(0, -1);
+
+    setCalc(value);
+
+    if (ops.includes(value.slice(-1))) {
+      setResult(eval(value.toString().slice(0,-1)));  
+    }
+    else{
+      setResult(eval(value.toString()));  
+    }
+
+  }
 
 
   return (
 
     <div className="App">
-    
-      <header className="App-header">
 
-        <a>
-          Calculadora Basica
-        </a>
+        <div>
 
-        <div className="calculator">
+          <h1>Calculadora Basica</h1>
+          <br></br>
 
-          <div className="display">
-          
-            <span>(0)</span> 0
+          <div className="calculator">
 
-          </div>
+            <div className="display">
+              {result ? <span>({result})</span> : '' }&nbsp;
+              { calc || "0" }
+            </div>
 
           <div className="symbols">
           
-            <button>+</button>
-            <button>-</button>
-            <button>*</button>
-            <button>/</button>
+            <button onClick={() => updateCalc('+')}>+</button>
+            <button onClick={() => updateCalc('-')}>-</button>
+            <button onClick={() => updateCalc('*')}>*</button>
+            <button onClick={() => updateCalc('/')}>/</button>
 
-            <button>AC</button>
+            <button onClick={deleteLast}>AC</button>
 
           </div>
 
-          <div className="numbers">
+          <div className="digits">
 
-            { setNumbers() }
+            { createDigits() }
 
-            <button>0</button>
-            <button>.</button>
-            <button>=</button>
+            <button onClick={() => updateCalc('0')}>0</button>
+            <button onClick={() => updateCalc('.')}>.</button>
+
+            <button onClick={calculate}>=</button>
           
           </div>
 
         </div>
 
-      </header>
+        </div>
+
+        
 
     </div>
 
