@@ -1,3 +1,7 @@
+# THIS CODE HAS ERRORS
+
+This project uses the function "eval", so it's not secure for public use. Please avoid using it. Thanks! - Omar Sánchez 200010
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
